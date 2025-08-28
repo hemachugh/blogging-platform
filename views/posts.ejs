@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>All Posts - Blogging Platform</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f9;
+        padding: 20px;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+      }
+      .post {
+        background: #f9f9f9;
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+      }
+      .post h3 {
+        margin: 0 0 5px;
+      }
+      .post p {
+        margin: 0 0 10px;
+      }
+      .buttons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .btn {
+        text-decoration: none;
+        background: #007bff;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+      .btn:hover {
+        background: #0056b3;
+      }
+      .comments {
+        margin-top: 10px;
+        padding-left: 15px;
+      }
+      .comment {
+        font-size: 14px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 8px;
+        margin-bottom: 5px;
+      }
+      form {
+        margin-top: 10px;
+      }
+      textarea {
+        width: 100%;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        margin-bottom: 6px;
+      }
+      button {
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #1e7e34;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>All Posts</h1>
+
+      <% if (posts && posts.length > 0) { %> <% posts.forEach(post => { %>
+      <div class="post">
+        <h3><%= post.Title %></h3>
+        <p><%= post.Content %></p>
+
+        <% if (post.User) { %>
+        <p><strong>by</strong> <%= post.User.name %></p>
+        <% } %>
+
+        <div class="buttons">
+          <a href="/posts/edit/<%= post.id %>" class="btn">✏ Edit</a>
+          <form action="/posts/delete/<%= post.id %>" method="POST">
+            <button type="submit">🗑 Delete</button>
+          </form>
+          <% if (post.User) { %>
+          <a href="/users/<%= post.User.id %>" class="btn">👤 User Details</a>
+          <% } %>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments">
+          <h4>Comments:</h4>
+          <% if (post.Comments && post.Comments.length > 0) { %> <%
+          post.Comments.forEach(comment => { %>
+          <div class="comment">
+            <p><%= comment.comment %></p>
+            <small
+              >by <%= comment.User ? comment.User.name : "Anonymous" %></small
+            >
+            <form
+              action="/comments/delete/<%= comment.id %>"
+              method="POST"
+              style="display: inline"
+            >
+              <button type="submit">🗑 Delete</button>
+            </form>
+          </div>
+          <% }) %> <% } else { %>
+          <p>No comments yet.</p>
+          <% } %>
+
+          <!-- Add Comment Form -->
+          <form action="/comments/create/<%= post.id %>" method="POST">
+            <textarea
+              name="content"
+              rows="2"
+              placeholder="Write a comment..."
+              required
+            ></textarea>
+            <button type="submit">💬 Add Comment</button>
+          </form>
+        </div>
+      </div>
+      <% }) %> <% } else { %>
+      <p>No posts found.</p>
+      <% } %>
+    </div>
+  </body>
+</html>

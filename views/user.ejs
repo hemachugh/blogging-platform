@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Details - Blogging Platform</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f9;
+        color: #333;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        margin-bottom: 10px;
+        color: #007bff;
+      }
+      .info {
+        margin-bottom: 20px;
+      }
+      .info p {
+        margin: 5px 0;
+        font-size: 16px;
+      }
+      h2 {
+        margin-top: 30px;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 5px;
+      }
+      .post {
+        background: #f9f9f9;
+        margin-bottom: 15px;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+      }
+      .post h3 {
+        margin: 0 0 8px 0;
+        color: #333;
+      }
+      .post p {
+        margin: 0;
+        color: #555;
+      }
+      .buttons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .btn {
+        text-decoration: none;
+        background: #007bff;
+        color: #fff;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: background 0.3s;
+      }
+      .btn:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>User Details</h1>
+
+      <% if (user) { %>
+      <div class="info">
+        <p><strong>Name:</strong> <%= user.name %></p>
+        <p><strong>Email:</strong> <%= user.email %></p>
+      </div>
+
+      <h2>Posts</h2>
+      <% if (user.Posts && user.Posts.length > 0) { %> <%
+      user.Posts.forEach(post => { %>
+      <div class="post">
+        <h3><%= post.Title %></h3>
+        <p><%= post.Content %></p>
+      </div>
+      <% }) %> <% } else { %>
+      <p>No posts found for this user.</p>
+      <% } %>
+
+      <div class="buttons">
+        <a href="/users" class="btn">⬅ Back to Users</a>
+        <a href="/" class="btn">🏠 Home</a>
+        <a href="/posts/new/<%= user.id %>" class="btn">➕ Create Post</a>
+      </div>
+      <% } else { %>
+      <p>User not found.</p>
+      <% } %>
+    </div>
+  </body>
+</html>

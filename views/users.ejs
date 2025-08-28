@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Users - Blogging Platform</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f9;
+        color: #333;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+      }
+      th {
+        background: #f0f0f0;
+      }
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+      }
+      .btn {
+        text-decoration: none;
+        background: #007bff;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 6px;
+        transition: background 0.3s;
+      }
+      .btn:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>👤 Users</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (users.length > 0) { %> <% users.forEach(user => { %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td>
+              <a href="/users/<%= user.id %>" class="btn btn-small"
+                >🔍 View Details</a
+              >
+              <form action="/users/edit/<%= user.id %>" method="POST">
+                <button type="submit">✏ Edit</button>
+              </form>
+              <form action="/users/delete/<%= user.id %>" method="POST">
+                <button type="submit">🗑 Delete</button>
+              </form>
+            </td>
+          </tr>
+          <% }) %> <% } else { %>
+          <tr>
+            <td colspan="3" style="text-align: center">No users found.</td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+
+      <div class="buttons">
+        <a href="/" class="btn">🏠 Home</a>
+        <a href="/users/new" class="btn">➕ Create User</a>
+      </div>
+    </div>
+  </body>
+</html>

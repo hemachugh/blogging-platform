@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create Post</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f9;
+        padding: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #007bff;
+        margin-bottom: 15px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      label {
+        margin-top: 10px;
+        font-weight: bold;
+      }
+      input,
+      textarea {
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+      }
+      button {
+        margin-top: 15px;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      .back-links {
+        margin-top: 20px;
+      }
+      .back-links a {
+        margin-right: 15px;
+        text-decoration: none;
+        color: #007bff;
+      }
+      .back-links a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Create Post for <%= user.name %></h1>
+      <form
+        action="<%= mode==='edit' ? '/posts/' + post.id + '/edit' : '/posts/create/' + user.id %>"
+        method="POST"
+      >
+        <label for="title">Title:</label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          value="<%= mode==='edit' ? post.Title : '' %>"
+          required
+        />
+
+        <label for="content">Content:</label>
+        <textarea name="content" id="content" rows="5" required>
+<%= mode==='edit' ? post.Content : '' %></textarea
+        >
+
+        <button type="submit">
+          <%= mode==='edit' ? 'Update Post' : 'Create Post' %>
+        </button>
+      </form>
+
+      <div class="back-links">
+        <a href="/users/<%= user.id %>">⬅ Back to User</a>
+        <a href="/users">All Users</a>
+        <a href="/">🏠 Home</a>
+      </div>
+    </div>
+  </body>
+</html>

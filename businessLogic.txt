@@ -1,0 +1,66 @@
+🔹 Business Logic (No Auth Version)
+1. User
+
+A user can be created directly (just name + email, no password yet).
+
+A user can be listed (view all users).
+
+A user can be deleted → their posts and comments should also be deleted (cascade delete).
+
+A user can be updated (e.g., change name/email).
+
+2. Post
+
+A user can create a post → must have a userId (the author).
+
+Anyone can fetch all posts.
+
+Posts should include their author’s details.
+
+Posts should also include all comments.
+
+A user can update or delete only their own posts (but for now, since no authentication, you can enforce this manually by checking userId).
+
+3. Comment
+
+A comment must always belong to both:
+
+A postId (which post it’s attached to)
+
+A userId (who wrote it)
+
+A user can create a comment on any post.
+
+Comments should be fetched along with:
+
+The post they belong to
+
+The user who wrote them
+
+A user can update or delete only their own comments (same as above, check userId).
+
+🔹 Example Flows (without auth)
+
+Create a Post:
+
+Input: title, content, userId
+
+Check: user exists?
+
+Save post with reference to user.
+
+Get Posts:
+
+Return posts with author + all comments (nested with commenter info).
+
+Add Comment:
+
+Input: content, postId, userId
+
+Check: user exists? post exists?
+
+Save comment.
+
+Delete User:
+
+Remove user → cascade remove their posts → cascade remove comments under those posts.
