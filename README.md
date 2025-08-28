@@ -15,6 +15,6 @@ This app allows users to create, read, update, and delete (CRUD) blog posts with
 ## Tech Stack
 
 - **Backend:** Node.js, Express.js  
-- **Database:** SQLite/MySQL/PostgreSQL (depending on your setup)  
+- **Database:** MySQL 
 - **ORM:** Sequelize  
 - **Frontend:** EJS templates, HTML, CSS
